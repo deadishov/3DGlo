@@ -1,8 +1,6 @@
 
 
-import getOne from './modules/one';
-import getTwo from './modules/two';
+import timer from './modules/timer';
 
 
-getOne();
-getTwo();
+timer('31 december 2022');
