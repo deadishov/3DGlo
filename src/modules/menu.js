@@ -5,7 +5,6 @@ const menu = () => {
     const menuItems = menu.querySelectorAll('ul>li>a');
     const scrollBtn = document.querySelector('a[href="#service-block"]>img');
 
-    console.log(scrollBtn);
 
     const handleMenu = () => {
         menu.classList.toggle('active-menu');
