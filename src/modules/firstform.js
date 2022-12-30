@@ -6,17 +6,19 @@ const firstForm = () => {
 
 
 
-    firstFormName.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^А-Яа-я -]/gi, '');
+    firstFormName.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^А-Яа-я -]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '').toLowerCase().replace(/([^а-я]|^)([а-я])(?=[а-я]{2})/g, function (_, g1, g2) {
+            return g1 + g2.toUpperCase();
+        });
     })
 
-    firstFormPhone.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^\d()-]/gi, '');
+    firstFormPhone.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^\d()-]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
     })
 
-    firstFormMail.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^\w@\-_.!~*']/gi, '');
+    firstFormMail.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^\w@\-_.!~*']/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
     })
 }
 
-export default firstForm
+export default firstForm;
