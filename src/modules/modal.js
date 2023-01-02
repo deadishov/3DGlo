@@ -1,7 +1,6 @@
 const modal = () => {
     const getModal = document.querySelector('.popup')
     const buttons = document.querySelectorAll('.popup-btn')
-    const popupClose = getModal.querySelector('.popup-close')
     const modalFormName = getModal.querySelector('#form3-name')
     const modalFormPhone = getModal.querySelector('#form3-phone')
     const modalFormMail = getModal.querySelector('#form3-email')
@@ -15,10 +14,6 @@ const modal = () => {
             getModal.style.transform = 'translateY(0)'
             getModal.style.transition = '1s'
         })
-    })
-
-    popupClose.addEventListener('click', () => {
-        getModal.style.transform = 'translateY(-100%)'
     })
 
 
@@ -41,7 +36,6 @@ const modal = () => {
         const clientWidth = document.documentElement.clientWidth;
         const getModal = document.querySelector('.popup')
         const buttons = document.querySelectorAll('.popup-btn')
-        const popupClose = getModal.querySelector('.popup-close')
 
 
         if (clientWidth > 767) {
@@ -55,9 +49,11 @@ const modal = () => {
                 })
             })
 
-            popupClose.addEventListener('click', () => {
-                getModal.style.display = 'block'
-                getModal.style.transform = 'translateY(-100%)'
+            getModal.addEventListener('click', (e) => {
+                if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+                    getModal.style.display = 'block'
+                    getModal.style.transform = 'translateY(-100%)'
+                }
             })
         } if (clientWidth < 768) {
             getModal.style.display = 'none';
@@ -68,9 +64,18 @@ const modal = () => {
                 })
             })
 
-            popupClose.addEventListener('click', () => {
-                getModal.style.display = 'none';
+            getModal.addEventListener('click', (e) => {
+                if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+                    getModal.style.display = 'none';
+                }
             })
+        }
+    })
+
+    getModal.addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+            getModal.style.display = 'block'
+            getModal.style.transform = 'translateY(-100%)'
         }
     })
 }

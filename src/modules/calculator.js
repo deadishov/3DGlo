@@ -3,7 +3,7 @@ const calculator = () => {
 
     calcItems.forEach((item) => {
         item.addEventListener('blur', (e) => {
-            e.target.value = e.target.value.replace(/\D/, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
+            e.target.value = e.target.value.replace(/[^\d]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
         })
     })
 };
