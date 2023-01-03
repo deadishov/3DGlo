@@ -17,4 +17,10 @@ calculator();
 firstForm();
 questions();
 tabs();
-slider();
+slider({
+    slider: '.portfolio-content',
+    slide: '.portfolio-item',
+    slideActive: 'portfolio-item-active',
+    dotsParam: '.portfolio-dots',
+    dotActive: 'dot-active'
+});

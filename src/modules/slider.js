@@ -1,12 +1,20 @@
-const slider = () => {
-    const sliderBlock = document.querySelector('.portfolio-content');
-    const slides = document.querySelectorAll('.portfolio-item');
-    const dotsList = document.querySelector('.portfolio-dots');
+const slider = ({
+    slider, slide, dotsParam, slideActive = 'slide-active', dotActive = 'dot-active'
+}) => {
+
+    const sliderBlock = document.querySelector(slider);
+    const slides = document.querySelectorAll(slide);
+    const dotsList = document.querySelector(dotsParam);
 
     const timeInterval = 2000
 
     let currentSlide = 0;
     let interval
+
+    if (!sliderBlock || !slides.length) {
+        console.error('Параметр слайдера или слайдов передан неверно')
+        return;
+    }
 
 
     for (let i = 0; i < slides.length; i++) {
@@ -26,16 +34,16 @@ const slider = () => {
     }
 
     const autoSlide = () => {
-        prevSlide(slides, currentSlide, 'portfolio-item-active')
-        prevSlide(dots, currentSlide, 'dot-active')
+        prevSlide(slides, currentSlide, slideActive)
+        prevSlide(dots, currentSlide, dotActive)
         currentSlide++;
 
         if (currentSlide >= slides.length) {
             currentSlide = 0
         }
 
-        nextSlide(slides, currentSlide, 'portfolio-item-active')
-        nextSlide(dots, currentSlide, 'dot-active')
+        nextSlide(slides, currentSlide, slideActive)
+        nextSlide(dots, currentSlide, dotActive)
     }
 
     const startSlide = (timer = 1500) => {
@@ -53,8 +61,8 @@ const slider = () => {
             return
         }
 
-        prevSlide(slides, currentSlide, 'portfolio-item-active')
-        prevSlide(dots, currentSlide, 'dot-active')
+        prevSlide(slides, currentSlide, slideActive)
+        prevSlide(dots, currentSlide, dotActive)
 
         if (e.target.matches('#arrow-right')) {
             currentSlide++
@@ -76,8 +84,8 @@ const slider = () => {
             currentSlide = slides.length - 1
         }
 
-        nextSlide(slides, currentSlide, 'portfolio-item-active')
-        nextSlide(dots, currentSlide, 'dot-active')
+        nextSlide(slides, currentSlide, slideActive)
+        nextSlide(dots, currentSlide, dotActive)
     })
 
     sliderBlock.addEventListener('mouseenter', (e) => {
