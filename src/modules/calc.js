@@ -16,6 +16,21 @@ const calc = (price = 100) => {
         let calcCountValue = 1
         let calcDayValue = 1
 
+        const numberAnimation = () => {
+            let startValue = 0
+            let endValue = totalValue
+            let interval = 5000
+            let duration = Math.floor(interval / endValue);
+            let counter = setInterval(() => {
+                startValue += 1
+                total.textContent = startValue
+                if (startValue == endValue) {
+                    clearInterval(counter)
+                }
+            }, duration / 1500)
+        }
+
+
         if (calcCount.value > 1) {
             calcCountValue += +calcCount.value / 10
         }
@@ -28,6 +43,7 @@ const calc = (price = 100) => {
 
         if (calcType.value && calcSquare.value) {
             totalValue = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue
+            numberAnimation()
         } else {
             totalValue = 0
         }
