@@ -1,3 +1,5 @@
+import { animate } from "./helpers"
+
 const modal = () => {
     const getModal = document.querySelector('.popup')
     const buttons = document.querySelectorAll('.popup-btn')
@@ -11,8 +13,17 @@ const modal = () => {
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            getModal.style.transform = 'translateY(0)'
-            getModal.style.transition = '1s'
+            animate({
+                duration: 700,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    getModal.style.transform = `translateY(${(progress - 1) * 100 + '%'})`;
+                }
+            })
+            // getModal.style.transform = 'translateY(0)'
+            // getModal.style.transition = '1s'
         })
     })
 
@@ -44,15 +55,30 @@ const modal = () => {
 
             buttons.forEach((button) => {
                 button.addEventListener('click', () => {
-                    getModal.style.transform = 'translateY(0)'
-                    getModal.style.transition = '1s'
+                    animate({
+                        duration: 700,
+                        timing(timeFraction) {
+                            return timeFraction;
+                        },
+                        draw(progress) {
+                            getModal.style.transform = `translateY(${(progress - 1) * 100 + '%'})`;
+                        }
+                    })
                 })
             })
 
             getModal.addEventListener('click', (e) => {
                 if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
                     getModal.style.display = 'block'
-                    getModal.style.transform = 'translateY(-100%)'
+                    animate({
+                        duration: 700,
+                        timing(timeFraction) {
+                            return timeFraction;
+                        },
+                        draw(progress) {
+                            getModal.style.transform = `translateY(${(progress) * (-100) + '%'})`;
+                        }
+                    })
                 }
             })
         } if (clientWidth < 768) {
@@ -61,6 +87,15 @@ const modal = () => {
             buttons.forEach((button) => {
                 button.addEventListener('click', () => {
                     getModal.style.display = 'block'
+                    animate({
+                        duration: 700,
+                        timing(timeFraction) {
+                            return timeFraction;
+                        },
+                        draw(progress) {
+                            getModal.style.transform = `translateY(${(progress) * 0 + '%'})`;
+                        }
+                    })
                 })
             })
 
@@ -75,7 +110,15 @@ const modal = () => {
     getModal.addEventListener('click', (e) => {
         if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
             getModal.style.display = 'block'
-            getModal.style.transform = 'translateY(-100%)'
+            animate({
+                duration: 700,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    getModal.style.transform = `translateY(${(progress) * (-100) + '%'})`;
+                }
+            })
         }
     })
 }
