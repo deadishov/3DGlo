@@ -8,6 +8,23 @@ const modal = () => {
     const modalFormMail = getModal.querySelector('#form3-email')
 
 
+
+    modalFormName.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^А-Яа-я -]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '').toLowerCase().replace(/([^а-я]|^)([а-я])(?=[а-я]{2})/g, function (_, g1, g2) {
+            return g1 + g2.toUpperCase();
+        })
+    })
+
+    modalFormPhone.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^\d()-]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
+    })
+
+    modalFormMail.addEventListener('blur', (e) => {
+        e.target.value = e.target.value.replace(/[^\w@\-_.!~*']/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
+    })
+
+
+
     getModal.style.display = 'block'
     getModal.style.transform = 'translateY(-100%)'
 
@@ -22,24 +39,23 @@ const modal = () => {
                     getModal.style.transform = `translateY(${(progress - 1) * 100 + '%'})`;
                 }
             })
-            // getModal.style.transform = 'translateY(0)'
-            // getModal.style.transition = '1s'
         })
     })
 
 
-    modalFormName.addEventListener('blur', (e) => {
-        e.target.value = e.target.value.replace(/[^А-Яа-я -]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '').toLowerCase().replace(/([^а-я]|^)([а-я])(?=[а-я]{2})/g, function (_, g1, g2) {
-            return g1 + g2.toUpperCase();
-        });;
-    })
-
-    modalFormPhone.addEventListener('blur', (e) => {
-        e.target.value = e.target.value.replace(/[^\d()-]/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
-    })
-
-    modalFormMail.addEventListener('blur', (e) => {
-        e.target.value = e.target.value.replace(/[^\w@\-_.!~*']/gi, '').replace(/\ \ +/gi, ' ').replace(/\-\-+/gi, '-').replace(/^\s/g, '').replace(/\s$/g, '');
+    getModal.addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+            getModal.style.display = 'block'
+            animate({
+                duration: 700,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    getModal.style.transform = `translateY(${(progress) * (-100) + '%'})`;
+                }
+            })
+        }
     })
 
 
@@ -107,20 +123,6 @@ const modal = () => {
         }
     })
 
-    getModal.addEventListener('click', (e) => {
-        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
-            getModal.style.display = 'block'
-            animate({
-                duration: 700,
-                timing(timeFraction) {
-                    return timeFraction;
-                },
-                draw(progress) {
-                    getModal.style.transform = `translateY(${(progress) * (-100) + '%'})`;
-                }
-            })
-        }
-    })
 }
 
 
