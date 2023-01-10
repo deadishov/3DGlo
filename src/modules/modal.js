@@ -59,7 +59,7 @@ const modal = () => {
     })
 
 
-    window.addEventListener('resize', () => {
+    window.addEventListener('DOMContentLoaded', () => {
         const clientWidth = document.documentElement.clientWidth;
         const getModal = document.querySelector('.popup')
         const buttons = document.querySelectorAll('.popup-btn')
