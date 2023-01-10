@@ -1,9 +1,12 @@
+import { animate } from "./helpers"
+
 const sendForm = ({ formId, someElem = [] }) => {
     const form = document.getElementById(formId)
     const nameInputs = form.querySelectorAll('input[name=user_name]')
     const mailInputs = form.querySelectorAll('input[name=user_email]')
     const phoneInputs = form.querySelectorAll('input[name=user_phone]')
     const statusBlock = document.createElement('div')
+    statusBlock.style.color = 'white'
     const loadText = 'Загрузка...'
     const errorText = 'Ошибка...'
     const successText = 'Спасибо! Наш менеджер с Вами свяжется!'
@@ -45,6 +48,19 @@ const sendForm = ({ formId, someElem = [] }) => {
 
         console.log(formElements);
 
+        animate({
+            duration: 300,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                if (validate(nameInputs, phoneInputs)) {
+                    statusBlock.textContent = `Загрузка ${Math.floor(progress * 100)}%`
+                }
+            }
+        })
+
+
         statusBlock.textContent = loadText
         form.append(statusBlock)
 
@@ -67,6 +83,7 @@ const sendForm = ({ formId, someElem = [] }) => {
 
 
         if (validate(nameInputs, phoneInputs)) {
+            cancelAnimationFrame(animate)
             sendData(formBody)
                 .then(data => {
                     statusBlock.textContent = successText
