@@ -23,7 +23,9 @@ const slider = ({
         dotsList.append(dot);
     }
 
+
     const dots = document.querySelectorAll('.dot');
+    dots[0].classList.toggle(dotActive)
 
     const prevSlide = (elems, index, strClass) => {
         elems[index].classList.remove(strClass);

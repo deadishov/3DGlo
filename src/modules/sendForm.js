@@ -14,18 +14,33 @@ const sendForm = ({ formId, someElem = [] }) => {
     const validate = (name, phone) => {
         let success = true
 
+
         name.forEach(input => {
             if (input.value.length < 2) {
                 success = false
+                alert('Имя должно содержать минимум 2 символа!')
                 statusBlock.textContent = errorText
             }
         })
         phone.forEach(input => {
             if (input.value.length < 11) {
                 success = false
+                alert('Номер телефона должен содержать минимум 11 цифр!')
                 statusBlock.textContent = errorText
             }
         })
+
+        if (success == true) {
+            animate({
+                duration: 300,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    statusBlock.textContent = `Загрузка ${Math.floor(progress * 100)}%`
+                }
+            })
+        }
 
 
         return success
@@ -46,22 +61,8 @@ const sendForm = ({ formId, someElem = [] }) => {
         const formData = new FormData(form)
         const formBody = {}
 
-        console.log(formElements);
-
-        animate({
-            duration: 300,
-            timing(timeFraction) {
-                return timeFraction;
-            },
-            draw(progress) {
-                if (validate(nameInputs, phoneInputs)) {
-                    statusBlock.textContent = `Загрузка ${Math.floor(progress * 100)}%`
-                }
-            }
-        })
 
 
-        statusBlock.textContent = loadText
         form.append(statusBlock)
 
         formData.forEach((val, key) => {
@@ -83,7 +84,6 @@ const sendForm = ({ formId, someElem = [] }) => {
 
 
         if (validate(nameInputs, phoneInputs)) {
-            cancelAnimationFrame(animate)
             sendData(formBody)
                 .then(data => {
                     statusBlock.textContent = successText
